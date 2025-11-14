@@ -1,5 +1,4 @@
 #include "tinyml.h"
-
 // Globals, for the convenience of one-shot setup.
 namespace
 {
@@ -80,13 +79,11 @@ void setupTinyML()
     Serial.println("TensorFlow Lite Micro initialized on ESP32.");
 }
 
-void tiny_ml_task(void *pvParameters)
-{
-
+void tiny_ml_task(void *pvParameters) {
     setupTinyML();
-
-    while (1)
-    {
+    float temperature;
+    float humidity;
+    while (1) {
 
         // Prepare input data (e.g., sensor readings)
         // For a simple example, let's assume a single float input

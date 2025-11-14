@@ -1,9 +1,7 @@
 #include "neo_blinky.h"
 #include "global.h"
 
-void neo_blinky(void *pvParameters)
-{
-
+void neo_blinky(void *pvParameters) {
     Adafruit_NeoPixel strip(LED_COUNT, NEO_PIN, NEO_GRB + NEO_KHZ800);
     strip.begin();
     // Set all pixels to off to start

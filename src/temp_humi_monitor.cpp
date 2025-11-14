@@ -1,11 +1,11 @@
 #include "temp_humi_monitor.h"
-#include "global.h"
 DHT20 dht20;
 LiquidCrystal_I2C lcd(33,16,2);
 
-
 void temp_humi_monitor(void *pvParameters){
-
+    float temperature;
+    float humidity;
+    
     Wire.begin(11, 12);
     dht20.begin();
 
@@ -21,8 +21,7 @@ void temp_humi_monitor(void *pvParameters){
 
     while (1){
         /* code */
-        
-        dht20.read();
+        vTaskDelay(50);
         // Reading temperature in Celsius
         float temperature = dht20.getTemperature();
         // Reading humidity
@@ -37,8 +36,7 @@ void temp_humi_monitor(void *pvParameters){
             lcd.setCursor(0, 0);
             lcd.print("Sensor Error!");
             //return;
-        } else
-        {
+        } else {
         SensorData sensordata;
         sensordata.temperature = temperature;
         sensordata.humidity = humidity;
@@ -85,8 +83,4 @@ void temp_humi_monitor(void *pvParameters){
                 lcd.print("WET ");
             }
         }
-
-        // Print the results
-        vTaskDelay(5000);
-    }
 }

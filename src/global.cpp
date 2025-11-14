@@ -14,6 +14,9 @@ String password = "12345678";
 String wifi_ssid;
 String wifi_password;
 boolean isWifiConnected = false;
+
+SensorData sensordata;
+SemaphoreHandle_t xBinarySemaphoreData = xSemaphoreCreateMutex();
 SemaphoreHandle_t xBinarySemaphoreInternet = xSemaphoreCreateBinary();
 SemaphoreHandle_t xSemaphoreMutex = xSemaphoreCreateMutex();
 

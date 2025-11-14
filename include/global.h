@@ -36,6 +36,9 @@ extern String ssid;
 extern String password;
 extern boolean isWifiConnected;
 
+extern SensorData sensordata;
+
+extern SemaphoreHandle_t xBinarySemaphoreData;
 extern SemaphoreHandle_t xBinarySemaphoreInternet;
 
 
