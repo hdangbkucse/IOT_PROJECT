@@ -8,7 +8,7 @@
 #include <HTTPClient.h>
 #include "task_check_info.h"
 
-#define LED_PIN 48
+#define LED_PIN 47
 extern bool attributesChanged;
 
 void CORE_IOT_sendata(String mode, String feed, String data);

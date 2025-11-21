@@ -4,6 +4,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include "global.h"
+#include "taskCoreIOT.h"
 
 #define LED1_PIN 48
 #define LED2_PIN 41

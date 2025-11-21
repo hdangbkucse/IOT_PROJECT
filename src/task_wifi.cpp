@@ -11,22 +11,22 @@ void startAPinWIFI()
 void startSTA()
 {
     Serial.println("Connecting to AP ...");
-    if (WIFI_SSID.isEmpty())
+    if (wifi_ssid.isEmpty())
     {
         vTaskDelete(NULL);
     }
 
     WiFi.mode(WIFI_STA);
 
-    if (WIFI_PASS.isEmpty())
+    if (wifi_password.isEmpty())
     {
-        WiFi.begin(WIFI_SSID.c_str());
+        WiFi.begin(wifi_ssid.c_str());
     }
     else
     {
-        Serial.println(WIFI_SSID.c_str());
-        Serial.println(WIFI_PASS.c_str());
-        WiFi.begin(WIFI_SSID.c_str(), WIFI_PASS.c_str());
+        Serial.println(wifi_ssid.c_str());
+        Serial.println(wifi_password.c_str());
+        WiFi.begin(wifi_ssid.c_str(), wifi_password.c_str());
     }
 
     while (WiFi.status() != WL_CONNECTED)

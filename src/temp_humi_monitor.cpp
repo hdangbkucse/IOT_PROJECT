@@ -21,7 +21,8 @@ void temp_humi_monitor(void *pvParameters) {
 
     while (1){
         /* code */
-        vTaskDelay(50);
+        vTaskDelay(5000);
+        dht20.read();
         // Reading temperature in Celsius
         float temperature = dht20.getTemperature();
         // Reading humidity
