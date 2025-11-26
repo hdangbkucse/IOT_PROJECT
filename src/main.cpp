@@ -5,8 +5,8 @@
 #include "temp_humi_monitor.h"
 #include "mainserver.h"
 #include "tinyml.h"
-// #include "coreiot.h"
-#include "taskCoreIOT.h"
+#include "coreiot.h"
+// #include "taskCoreIOT.h"
 
 // include task
 #include "task_check_info.h"
@@ -25,8 +25,8 @@ void setup()
   xTaskCreate(neo_blinky, "Task NEO Blink", 4096, NULL, 2, NULL);
   xTaskCreate(temp_humi_monitor, "Task TEMP HUMI Monitor", 4096, NULL, 2, NULL);
   xTaskCreate(main_server_task, "Task Main Server" , 16384  ,NULL  ,2 , NULL);
-  //xTaskCreate(tiny_ml_task, "Tiny ML Task" ,8192  ,NULL  ,2 , NULL);
-  //xTaskCreate(taskCoreIOT, "CoreIOT Task" ,4096  ,NULL  ,2 , NULL);
+  xTaskCreate(tiny_ml_task, "Tiny ML Task" ,8192  ,NULL  ,2 , NULL);
+  // xTaskCreate(coreiot_task, "CoreIOT Task" ,4096  ,NULL  ,2 , NULL);
 }
 
 void loop()

@@ -22,9 +22,8 @@ SensorData data_receive;
 // };
 
 void taskCoreIOT(void *pvParameters) {
-  //Wifi
-  startSTA();
   pinMode(LED_PIN, OUTPUT);
+  xQueueReceive(xQueueForCoreIOT, &data_receive, portMAX_DELAY);
 
   while(1) {
     float temperature, humidity;

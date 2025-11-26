@@ -92,6 +92,9 @@ void CORE_IOT_reconnect()
 {
     if (!tb.connected())
     {
+        Serial.print("Server: "); Serial.println(CORE_IOT_SERVER.c_str());
+        Serial.print("Port: "); Serial.println(CORE_IOT_PORT.toInt());
+        Serial.print("Token: "); Serial.println(CORE_IOT_TOKEN.c_str());
         if (!tb.connect(CORE_IOT_SERVER.c_str(), CORE_IOT_TOKEN.c_str(), CORE_IOT_PORT.toInt()))
         {
             Serial.println("Failed to connect");
