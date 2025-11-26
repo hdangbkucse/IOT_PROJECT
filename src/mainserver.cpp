@@ -22,20 +22,19 @@ String mainPage()
 {
   float temperature = 0;
   float humidity = 0;
+  float percent = 0;
+  String result = "";
     
-      SensorData data_receive;
-
+  MLResult ml_result;
    
-    if (xQueueReceive(xQueueForMainServer, &data_receive, portMAX_DELAY) == pdTRUE) {
-        // Process the received sensor data
-        // For example, you can print it to the Serial Monitor
-     
-    temperature = data_receive.temperature;
-    humidity = data_receive.humidity;
-
-    }
-
-
+  if (xQueueReceive(xQueueForMainServer, &ml_result, portMAX_DELAY) == pdTRUE) {
+    // Process the received sensor data
+    // For example, you can print it to the Serial Monitor
+    temperature = ml_result.temperature;
+    humidity = ml_result.humidity;
+    percent = ml_result.inference_result * 100;
+    result = ml_result.anomaly_type;
+  }
 
   pinMode(47, OUTPUT);
   pinMode(38, OUTPUT);
@@ -142,6 +141,14 @@ String mainPage()
         💧 Độ ẩm: <span id="hum">)rawliteral" +
          String(humidity) + R"rawliteral(</span> %
       </div>
+      <div class="sensor">
+        👽 Dự đoán AI: <span id="result">)rawliteral" +
+         result + R"rawliteral(</span>
+      </div>
+      <div class="sensor">
+        🚨 Tỉ lệ bất thường dự đoán: <span id="percent">)rawliteral" +
+         String(percent) + R"rawliteral(</span> %
+      </div>
 
       <div>
         <button onclick='toggleLED(1)'>💡 LED1: <span id="l1">)rawliteral" +
@@ -169,6 +176,8 @@ String mainPage()
           .then(d=>{
             document.getElementById('temp').innerText=d.temp;
             document.getElementById('hum').innerText=d.hum;
+            document.getElementById('percent').innerText=d.percent;
+            document.getElementById('result').innerText=d.result;
           });
       },3000);
     </script>
@@ -280,7 +289,7 @@ String settingsPage()
       <form id="wifiForm">
         <input name="ssid" id="ssid" type="text" placeholder="Tên Wi-Fi (SSID)" required><br>
         <input name="password" id="pass" type="password" placeholder="Mật khẩu (bỏ trống nếu không có)"><br><br>
-        <button type="submit">Kết nối</button>
+        <button type="submit" onclick="window.location='https://app.coreiot.io'">Kết nối</button>
         <button type="button" id="back" onclick="window.location='/'">Quay lại</button>
       </form>
       <div id="msg"></div>
@@ -330,25 +339,32 @@ void handleToggle()
 
 void handleSensors()
 {
-//   float t = glob_temperature;
-//   float h = glob_humidity;
-
- float temperature = 0;
- float humidity = 0;
+  float temperature = 0;
+  float humidity = 0;
+  float percent = 0;
+  String result = "";
     
- SensorData data_receive;
+  MLResult ml_result;
 
    
-    if (xQueueReceive(xQueueForMainServer, &data_receive, portMAX_DELAY) == pdTRUE) {
-        // Process the received sensor data
-        // For example, you can print it to the Serial Monitor
+  if (xQueueReceive(xQueueForMainServer, &ml_result, portMAX_DELAY) == pdTRUE) {
+    // Process the received sensor data
+    // For example, you can print it to the Serial Monitor
+    temperature = ml_result.temperature;
+    humidity = ml_result.humidity;
+    percent = ml_result.inference_result * 100;
+    result = ml_result.anomaly_type;
+    Serial.print("[Mainserver] T:");
+    Serial.print(ml_result.temperature);
+    Serial.print(" H:");
+    Serial.print(ml_result.humidity);
+    Serial.print(" | Result:");
+    Serial.print(ml_result.inference_result);
+    Serial.print(" | Level:");
+    Serial.println(ml_result.anomaly_type);
+  }
 
-    temperature = data_receive.temperature;
-    humidity = data_receive.humidity;
-
-    }
-
-  String json = "{\"temp\":" + String(temperature) + ",\"hum\":" + String(humidity) + "}";
+  String json = "{\"temp\":" + String(temperature) + ",\"hum\":" + String(humidity) + ",\"percent\":" + String(percent) + ",\"result\":" + "\"" + result + "\"}";
   serverAP.send(200, "application/json", json);
 }
 

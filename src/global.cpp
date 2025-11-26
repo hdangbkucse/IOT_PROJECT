@@ -24,4 +24,4 @@ QueueHandle_t xQueueForLedBlink = xQueueCreate(5, sizeof(SensorData));
 QueueHandle_t xQueueForNeoPixel = xQueueCreate(5, sizeof(SensorData));
 QueueHandle_t xQueueForTinyML   = xQueueCreate(5, sizeof(SensorData));
 QueueHandle_t xQueueForCoreIOT   = xQueueCreate(1, sizeof(SensorData));
-QueueHandle_t xQueueForMainServer   = xQueueCreate(5, sizeof(SensorData));
+QueueHandle_t xQueueForMainServer   = xQueueCreate(5, sizeof(MLResult));
