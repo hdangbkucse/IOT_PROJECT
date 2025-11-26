@@ -26,7 +26,7 @@
 // Publish data topics.
 #if THINGSBOARD_ENABLE_PROGMEM
 constexpr char ATTRIBUTE_TOPIC[] PROGMEM = "v1/devices/me/attributes";
-constexpr char TELEMETRY_TOPIC[] PROGMEM = "v1/devices/me/telemetry";
+constexpr char TELEMETRY_TOPIC[] PROGMEM = "esp/telemetry";
 #else
 constexpr char ATTRIBUTE_TOPIC[] = "v1/devices/me/attributes";
 constexpr char TELEMETRY_TOPIC[] = "v1/devices/me/telemetry";
