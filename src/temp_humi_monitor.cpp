@@ -45,7 +45,6 @@ void temp_humi_monitor(void *pvParameters) {
             xQueueSend(xQueueForNeoPixel, &sensordata, 0);
             xQueueSend(xQueueForTinyML, &sensordata, 0);
             xQueueSend(xQueueForCoreIOT, &sensordata, 0);
-            xQueueSend(xQueueForMainServer, &sensordata, 0);
            
 
             lcd.clear();
